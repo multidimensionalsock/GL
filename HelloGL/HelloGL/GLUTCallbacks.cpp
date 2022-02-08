@@ -23,4 +23,11 @@ namespace GLUTCallbacks {
 		updateTime = glutGet(GLUT_ELAPSED_TIME) - updateTime; // working out how long it takes update to run to fix fps to 60
 		glutTimerFunc(preferredRefresh - updateTime, GLUTCallbacks::Timer, preferredRefresh);
 	}
+<<<<<<< Updated upstream
+=======
+
+	void Keyboard(unsigned char key, int x, int y) {
+		helloGL->Keyboard(key, x, y);
+	}
+>>>>>>> Stashed changes
 }

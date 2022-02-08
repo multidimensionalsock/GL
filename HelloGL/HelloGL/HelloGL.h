@@ -14,6 +14,10 @@ public:
 	void Display();
 	void DrawPolygon1();
 	void Update();
+<<<<<<< Updated upstream
+=======
+	void Keyboard(unsigned char key, int x, int y);
+>>>>>>> Stashed changes
 
 private:
 	float rotation;
