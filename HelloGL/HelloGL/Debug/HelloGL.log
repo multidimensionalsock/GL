@@ -1,6 +1,1 @@
-﻿  GLUTCallbacks.cpp
-  HelloGL.cpp
-C:\Users\Robyn\Desktop\gtihub\GL\HelloGL\HelloGL\HelloGL.cpp(36,23): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-  main.cpp
-  Generating Code...
-  HelloGL.vcxproj -> C:\Users\Robyn\Desktop\gtihub\GL\HelloGL\Debug\HelloGL.exe
+﻿
