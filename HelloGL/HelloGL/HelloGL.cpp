@@ -5,7 +5,9 @@ HelloGL::HelloGL(int argc, char* argv[]) {
 	rotation = 0.0f;
 	GLUTCallbacks::Init(this);
 	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE); // double buffering
 	glutInitWindowSize(800, 800);
+	glutInitWindowPosition(100, 100); // aspect ratio (max point onaxis is now 100 x and y not 1)
 	glutCreateWindow("simple openGL program");
 	glutDisplayFunc(GLUTCallbacks::Display);
 	glutTimerFunc(REFRESHRATE, GLUTCallbacks::Timer, REFRESHRATE);
@@ -18,6 +20,7 @@ void HelloGL::Display() {
 	DrawPolygon1();
 	
 	glFlush();
+	glutSwapBuffers(); // double buffering
 }
 
 void HelloGL::DrawPolygon1() {
@@ -45,8 +48,12 @@ HelloGL::~HelloGL(void) {
 
 void HelloGL::Update() {
 	rotation += 0.5f;
+	//Sleep(10);
 	if (rotation >= 360.0f)
 		rotation = 0.0f;
 
 	glutPostRedisplay();
 }
+
+
+

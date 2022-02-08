@@ -18,7 +18,9 @@ namespace GLUTCallbacks {
 	}
 
 	void Timer(int preferredRefresh) {
+		int updateTime = glutGet(GLUT_ELAPSED_TIME);
 		helloGL->Update(); 
-		glutTimerFunc(preferredRefresh, GLUTCallbacks::Timer, preferredRefresh);
+		updateTime = glutGet(GLUT_ELAPSED_TIME) - updateTime; // working out how long it takes update to run to fix fps to 60
+		glutTimerFunc(preferredRefresh - updateTime, GLUTCallbacks::Timer, preferredRefresh);
 	}
 }
