@@ -3,6 +3,7 @@
 
 HelloGL::HelloGL(int argc, char* argv[]) {
 	rotation = 0.0f;
+	camera = new Camera();
 	GLUTCallbacks::Init(this);
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE); // double buffering
@@ -23,8 +24,9 @@ HelloGL::HelloGL(int argc, char* argv[]) {
 void HelloGL::Display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	DrawPolygon1();
-	
+	//DrawPolygon1();
+	glutWireDodecahedron();
+
 	glFlush();
 	glutSwapBuffers(); // double buffering
 }
@@ -46,31 +48,17 @@ void HelloGL::DrawPolygon1() {
 	glPopMatrix();
 }
 
-
-
-//
-//	glBegin(GL_POLYGON);
-//	glColor4f(1.0f, 0.0f, 0.0f, 0.0f);
-//	glVertex2f(-0.5f, 0.5f);
-//	glColor4f(0.0f, 1.0f, 0.0f, 0.0f);
-//	glVertex2f(0.5f, 0.5f);
-//	glColor4f(0.0f, 0.0f, 1.0f, 0.0f);
-//	glVertex2f(0.5f, -0.5f);
-//	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
-//	glVertex2f(-0.5f, -0.5f);
-//	glEnd();
-//	glPopMatrix();
-//}
-
-
-
-
 HelloGL::~HelloGL(void) {
-
+	camera->eye.x = 0.0f; camera->eye.y = 0.0f; camera->eye.z = 0.0f;
+	camera->centre.x = 0.0f, camera->centre.y = 0.0f, camera->centre.z = 0.0f;
+	camera->up.x = 0.0f; camera->up.y = 0.0f; camera->up.z = 0.0f;
 }
 
 void HelloGL::Update() {
 	glLoadIdentity();
+	/*gluLookAt(camera->eye.x, camera->eye.y, camera->eye.z, 
+		camera->centre.x, camera->centre.y, camera->centre.z, 
+		camera->up.x, camera->up.y, camera->up.z);*/
 	glTranslatef(0.0f, 0.0f, -5.0f);
 	rotation += 0.5f;
 	//Sleep(10);
