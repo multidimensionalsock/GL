@@ -35,6 +35,8 @@ public:
 	void DrawPolygon1();
 	void DrawCubeArray();
 	void DrawIndexedCube();
+	void DrawCubeArrayAlt();
+	void DrawIndexedCubeAlt();
 	void Update();
 	void Keyboard(unsigned char key, int x, int y);
 
