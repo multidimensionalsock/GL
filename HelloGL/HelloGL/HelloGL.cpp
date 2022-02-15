@@ -12,6 +12,11 @@ HelloGL::HelloGL(int argc, char* argv[]) {
 	glutKeyboardFunc(GLUTCallbacks::Keyboard);
 	glutDisplayFunc(GLUTCallbacks::Display);
 	glutTimerFunc(REFRESHRATE, GLUTCallbacks::Timer, REFRESHRATE);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glViewport(0, 0, 800, 800);
+	gluPerspective(45, 1, 0, 1000); //field of view, aspect ratio, near clipping distance, far clipping distance
+	glMatrixMode(GL_MODELVIEW);
 	glutMainLoop(); //put nothing after this
 }
 
@@ -27,7 +32,6 @@ void HelloGL::Display() {
 void HelloGL::DrawPolygon1() {
 	glPushMatrix();
 	glRotatef(rotation, 1.0f, 1.0f, 1.0f);
-<<<<<<< Updated upstream
 
 	glBegin(GL_POLYGON);
 	glColor4f(1.0f, 0.0f, 0.0f, 0.0f);
@@ -43,21 +47,21 @@ void HelloGL::DrawPolygon1() {
 }
 
 
-=======
 
-	glBegin(GL_POLYGON);
-	glColor4f(1.0f, 0.0f, 0.0f, 0.0f);
-	glVertex2f(-0.5f, 0.5f);
-	glColor4f(0.0f, 1.0f, 0.0f, 0.0f);
-	glVertex2f(0.5f, 0.5f);
-	glColor4f(0.0f, 0.0f, 1.0f, 0.0f);
-	glVertex2f(0.5f, -0.5f);
-	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
-	glVertex2f(-0.5f, -0.5f);
-	glEnd();
-	glPopMatrix();
-}
->>>>>>> Stashed changes
+//
+//	glBegin(GL_POLYGON);
+//	glColor4f(1.0f, 0.0f, 0.0f, 0.0f);
+//	glVertex2f(-0.5f, 0.5f);
+//	glColor4f(0.0f, 1.0f, 0.0f, 0.0f);
+//	glVertex2f(0.5f, 0.5f);
+//	glColor4f(0.0f, 0.0f, 1.0f, 0.0f);
+//	glVertex2f(0.5f, -0.5f);
+//	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+//	glVertex2f(-0.5f, -0.5f);
+//	glEnd();
+//	glPopMatrix();
+//}
+
 
 
 
@@ -66,6 +70,8 @@ HelloGL::~HelloGL(void) {
 }
 
 void HelloGL::Update() {
+	glLoadIdentity();
+	glTranslatef(0.0f, 0.0f, -5.0f);
 	rotation += 0.5f;
 	//Sleep(10);
 	if (rotation >= 360.0f)
@@ -74,12 +80,8 @@ void HelloGL::Update() {
 	glutPostRedisplay();
 }
 
-<<<<<<< Updated upstream
-
-=======
 void HelloGL::Keyboard(unsigned char key, int x, int y) {
 	if (key == 'd')
 		rotation += 0.5f;
 }
->>>>>>> Stashed changes
 
