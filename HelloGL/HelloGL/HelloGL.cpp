@@ -4,6 +4,9 @@
 HelloGL::HelloGL(int argc, char* argv[]) {
 	rotation = 0.0f;
 	camera = new Camera();
+	camera->eye.x = 0.0f; camera->eye.y = 0.0f; camera->eye.z = 1.0f;
+	camera->centre.x = 0.0f, camera->centre.y = 0.0f, camera->centre.z = 0.0f;
+	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 	GLUTCallbacks::Init(this);
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE); // double buffering
@@ -49,16 +52,14 @@ void HelloGL::DrawPolygon1() {
 }
 
 HelloGL::~HelloGL(void) {
-	camera->eye.x = 0.0f; camera->eye.y = 0.0f; camera->eye.z = 0.0f;
-	camera->centre.x = 0.0f, camera->centre.y = 0.0f, camera->centre.z = 0.0f;
-	camera->up.x = 0.0f; camera->up.y = 0.0f; camera->up.z = 0.0f;
+	delete camera;
 }
 
 void HelloGL::Update() {
 	glLoadIdentity();
-	/*gluLookAt(camera->eye.x, camera->eye.y, camera->eye.z, 
+	gluLookAt(camera->eye.x, camera->eye.y, camera->eye.z, 
 		camera->centre.x, camera->centre.y, camera->centre.z, 
-		camera->up.x, camera->up.y, camera->up.z);*/
+		camera->up.x, camera->up.y, camera->up.z);
 	glTranslatef(0.0f, 0.0f, -5.0f);
 	rotation += 0.5f;
 	//Sleep(10);
