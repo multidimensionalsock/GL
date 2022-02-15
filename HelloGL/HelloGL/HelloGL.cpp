@@ -21,6 +21,8 @@ HelloGL::HelloGL(int argc, char* argv[]) {
 	glViewport(0, 0, 800, 800);
 	gluPerspective(45, 1, 0, 1000); //field of view, aspect ratio, near clipping distance, far clipping distance
 	glMatrixMode(GL_MODELVIEW);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	glutMainLoop(); //put nothing after this
 }
 
