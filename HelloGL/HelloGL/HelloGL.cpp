@@ -28,7 +28,7 @@ void HelloGL::Display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	//DrawPolygon1();
-	glutWireDodecahedron();
+	DrawCube();
 
 	glFlush();
 	glutSwapBuffers(); // double buffering
@@ -49,6 +49,96 @@ void HelloGL::DrawPolygon1() {
 	glVertex2f(-0.75, -0.5f);
 	glEnd();
 	glPopMatrix();
+}
+
+void HelloGL::DrawCube() {
+	glBegin(GL_TRIANGLES);
+	//face v0-v1-v2
+	glColor3f(1, 1, 1);
+	glVertex3f(1, 1, 1);
+	glColor3f(1, 1, 0);
+	glVertex3f(-1, 1, 1);
+	glColor3f(1, 0, 0);
+	glVertex3f(-1, -1, 1);
+	//face v2-v3-v0
+	glColor3f(1, 0, 0);
+	glVertex3f(-1, -1, 1);
+	glColor3f(1, 0, 1);
+	glVertex3f(1, -1, 1);
+	glColor3f(1, 1, 1);
+	glVertex3f(1, 1, 1);
+	// face v0-v3-v4
+	glColor3f(1, 1, 1);
+	glVertex3f(1, 1, 1);
+	glColor3f(1, 0, 1);
+	glVertex3f(1, -1, 1);
+	glColor3f(0, 0, 1);
+	glVertex3f(1, -1, -1);
+	// face v4-v5-v0
+	glColor3f(0, 0, 1);
+	glVertex3f(1, -1, -1);
+	glColor3f(0, 1, 1);
+	glVertex3f(1, 1, -1);
+	glColor3f(1, 1, 1);
+	glVertex3f(1, 1, 1);
+	// face v0-v5-v6
+	glColor3f(1, 1, 1);
+	glVertex3f(1, 1, 1);
+	glColor3f(0, 1, 1);
+	glVertex3f(1, 1, -1);
+	glColor3f(0, 1, 0);
+	glVertex3f(-1, 1, -1);
+	// face v6-v1-v0
+	glColor3f(0, 1, 0);
+	glVertex3f(-1, 1, -1);
+	glColor3f(1, 1, 0);
+	glVertex3f(-1, 1, 1);
+	glColor3f(1, 1, 1);
+	glVertex3f(1, 1, 1);
+	// face  v1-v6-v7
+	glColor3f(1, 1, 0);
+	glVertex3f(-1, 1, 1);
+	glColor3f(0, 1, 0);
+	glVertex3f(-1, 1, -1);
+	glColor3f(0, 0, 0);
+	glVertex3f(-1, -1, -1);
+	// face v7-v2-v1
+	glColor3f(0, 0, 0);
+	glVertex3f(-1, -1, -1);
+	glColor3f(1, 0, 0);
+	glVertex3f(-1, -1, 1);
+	glColor3f(1, 1, 0);
+	glVertex3f(-1, 1, 1);
+	// face v7-v4-v3
+	glColor3f(0, 0, 0);
+	glVertex3f(-1, -1, -1);
+	glColor3f(0, 0, 1);
+	glVertex3f(1, -1, -1);
+	glColor3f(1, 0, 1);
+	glVertex3f(1, -1, 1);
+	// face v3-v2-v7
+	glColor3f(1, 0, 1);
+	glVertex3f(1, -1, 1);
+	glColor3f(1, 0, 0);
+	glVertex3f(-1, -1, 1);
+	glColor3f(0, 0, 0);
+	glVertex3f(-1, -1, -1);
+	// face v4-v7-v6
+	glColor3f(0, 0, 1);
+	glVertex3f(1, -1, -1);
+	glColor3f(0, 0, 0);
+	glVertex3f(-1, -1, -1);
+	glColor3f(0, 1, 0);
+	glVertex3f(-1, 1, -1);
+	// face v6-v5-v4
+	glColor3f(0, 1, 0);
+	glVertex3f(-1, 1, -1);
+	glColor3f(0, 1, 1);
+	glVertex3f(1, 1, -1);
+	glColor3f(0, 0, 1);
+	glVertex3f(1, -1, -1);
+
+	glEnd();
 }
 
 HelloGL::~HelloGL(void) {
@@ -72,7 +162,8 @@ void HelloGL::Update() {
 void HelloGL::Keyboard(unsigned char key, int x, int y) {
 	if (key == 'd')
 		rotation += 0.5f;
-	if (key = 'a') 
+	if (key = 'a') {
 		camera->eye.z += 0.1f; // zoom in
+	}
 }
 

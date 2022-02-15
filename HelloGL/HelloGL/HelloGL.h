@@ -25,6 +25,7 @@ public:
 	~HelloGL(void);
 	void Display();
 	void DrawPolygon1();
+	void DrawCube();
 	void Update();
 	void Keyboard(unsigned char key, int x, int y);
 
