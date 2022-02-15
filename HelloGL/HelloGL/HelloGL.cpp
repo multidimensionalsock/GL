@@ -1,6 +1,43 @@
 #include "HelloGL.h"
 #include "GLUTCallbacks.h"
 
+Vertex HelloGL::vertices[] = { 1, 1, 1,  -1, 1, 1,  -1,-1, 1,      // v0-v1-v2 (front)
+				-1,-1, 1,   1,-1, 1,   1, 1, 1,      // v2-v3-v0
+
+				1, 1, 1,   1,-1, 1,   1,-1,-1,      // v0-v3-v4 (right)
+				1,-1,-1,   1, 1,-1,   1, 1, 1,      // v4-v5-v0
+
+				1, 1, 1,   1, 1,-1,  -1, 1,-1,      // v0-v5-v6 (top)
+				-1, 1,-1,  -1, 1, 1,   1, 1, 1,      // v6-v1-v0
+
+				-1, 1, 1,  -1, 1,-1,  -1,-1,-1,      // v1-v6-v7 (left)
+				-1,-1,-1,  -1,-1, 1,  -1, 1, 1,      // v7-v2-v1
+
+				-1,-1,-1,   1,-1,-1,   1,-1, 1,      // v7-v4-v3 (bottom)
+				1,-1, 1,  -1,-1, 1,  -1,-1,-1,      // v3-v2-v7
+
+				1,-1,-1,  -1,-1,-1,  -1, 1,-1,      // v4-v7-v6 (back)
+				-1, 1,-1,   1, 1,-1,   1,-1,-1 };    // v6-v5-v4
+
+Color HelloGL::colors[] = { 1, 1, 1,   1, 1, 0,   1, 0, 0,      // v0-v1-v2 (front)
+				1, 0, 0,   1, 0, 1,   1, 1, 1,      // v2-v3-v0
+
+				1, 1, 1,   1, 0, 1,   0, 0, 1,      // v0-v3-v4 (right)
+				0, 0, 1,   0, 1, 1,   1, 1, 1,      // v4-v5-v0
+
+				1, 1, 1,   0, 1, 1,   0, 1, 0,      // v0-v5-v6 (top)
+				0, 1, 0,   1, 1, 0,   1, 1, 1,      // v6-v1-v0
+
+				1, 1, 0,   0, 1, 0,   0, 0, 0,      // v1-v6-v7 (left)
+				0, 0, 0,   1, 0, 0,   1, 1, 0,      // v7-v2-v1
+
+				0, 0, 0,   0, 0, 1,   1, 0, 1,      // v7-v4-v3 (bottom)
+				1, 0, 1,   1, 0, 0,   0, 0, 0,      // v3-v2-v7
+
+				0, 0, 1,   0, 0, 0,   0, 1, 0,      // v4-v7-v6 (back)
+				0, 1, 0,   0, 1, 1,   0, 0, 1 };    // v6-v5-v4
+
+
 HelloGL::HelloGL(int argc, char* argv[]) {
 	rotation = 0.0f;
 	camera = new Camera();
@@ -30,7 +67,7 @@ void HelloGL::Display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	//DrawPolygon1();
-	DrawCube();
+	DrawCubeArray();
 
 	glFlush();
 	glutSwapBuffers(); // double buffering
@@ -53,96 +90,6 @@ void HelloGL::DrawPolygon1() {
 	glPopMatrix();
 }
 
-void HelloGL::DrawCube() {
-	glBegin(GL_TRIANGLES);
-	//face v0-v1-v2
-	glColor3f(1, 1, 1);
-	glVertex3f(1, 1, 1);
-	glColor3f(1, 1, 0);
-	glVertex3f(-1, 1, 1);
-	glColor3f(1, 0, 0);
-	glVertex3f(-1, -1, 1);
-	//face v2-v3-v0
-	glColor3f(1, 0, 0);
-	glVertex3f(-1, -1, 1);
-	glColor3f(1, 0, 1);
-	glVertex3f(1, -1, 1);
-	glColor3f(1, 1, 1);
-	glVertex3f(1, 1, 1);
-	// face v0-v3-v4
-	glColor3f(1, 1, 1);
-	glVertex3f(1, 1, 1);
-	glColor3f(1, 0, 1);
-	glVertex3f(1, -1, 1);
-	glColor3f(0, 0, 1);
-	glVertex3f(1, -1, -1);
-	// face v4-v5-v0
-	glColor3f(0, 0, 1);
-	glVertex3f(1, -1, -1);
-	glColor3f(0, 1, 1);
-	glVertex3f(1, 1, -1);
-	glColor3f(1, 1, 1);
-	glVertex3f(1, 1, 1);
-	// face v0-v5-v6
-	glColor3f(1, 1, 1);
-	glVertex3f(1, 1, 1);
-	glColor3f(0, 1, 1);
-	glVertex3f(1, 1, -1);
-	glColor3f(0, 1, 0);
-	glVertex3f(-1, 1, -1);
-	// face v6-v1-v0
-	glColor3f(0, 1, 0);
-	glVertex3f(-1, 1, -1);
-	glColor3f(1, 1, 0);
-	glVertex3f(-1, 1, 1);
-	glColor3f(1, 1, 1);
-	glVertex3f(1, 1, 1);
-	// face  v1-v6-v7
-	glColor3f(1, 1, 0);
-	glVertex3f(-1, 1, 1);
-	glColor3f(0, 1, 0);
-	glVertex3f(-1, 1, -1);
-	glColor3f(0, 0, 0);
-	glVertex3f(-1, -1, -1);
-	// face v7-v2-v1
-	glColor3f(0, 0, 0);
-	glVertex3f(-1, -1, -1);
-	glColor3f(1, 0, 0);
-	glVertex3f(-1, -1, 1);
-	glColor3f(1, 1, 0);
-	glVertex3f(-1, 1, 1);
-	// face v7-v4-v3
-	glColor3f(0, 0, 0);
-	glVertex3f(-1, -1, -1);
-	glColor3f(0, 0, 1);
-	glVertex3f(1, -1, -1);
-	glColor3f(1, 0, 1);
-	glVertex3f(1, -1, 1);
-	// face v3-v2-v7
-	glColor3f(1, 0, 1);
-	glVertex3f(1, -1, 1);
-	glColor3f(1, 0, 0);
-	glVertex3f(-1, -1, 1);
-	glColor3f(0, 0, 0);
-	glVertex3f(-1, -1, -1);
-	// face v4-v7-v6
-	glColor3f(0, 0, 1);
-	glVertex3f(1, -1, -1);
-	glColor3f(0, 0, 0);
-	glVertex3f(-1, -1, -1);
-	glColor3f(0, 1, 0);
-	glVertex3f(-1, 1, -1);
-	// face v6-v5-v4
-	glColor3f(0, 1, 0);
-	glVertex3f(-1, 1, -1);
-	glColor3f(0, 1, 1);
-	glVertex3f(1, 1, -1);
-	glColor3f(0, 0, 1);
-	glVertex3f(1, -1, -1);
-
-	glEnd();
-}
-
 HelloGL::~HelloGL(void) {
 	delete camera;
 }
@@ -159,6 +106,21 @@ void HelloGL::Update() {
 		rotation = 0.0f;
 
 	glutPostRedisplay();
+}
+
+void HelloGL::DrawCubeArray() {
+	glPushMatrix();
+
+	glBegin(GL_TRIANGLES);
+	for (int i = 0; i < 36; i++) {
+		/*glColor3f(colors[i].r, colors[i].g, colors[i].b);
+		glVertex3f(vertices[i].x, vertices[i].y, vertices[i].z);*/
+		glColor3fv(&colors[i].r);
+		glVertex3fv(&vertices[i].x);
+	}
+	glEnd();
+
+	glPopMatrix();
 }
 
 void HelloGL::Keyboard(unsigned char key, int x, int y) {
