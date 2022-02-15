@@ -72,5 +72,7 @@ void HelloGL::Update() {
 void HelloGL::Keyboard(unsigned char key, int x, int y) {
 	if (key == 'd')
 		rotation += 0.5f;
+	if (key = 'a') 
+		camera->eye.z += 0.1f; // zoom in
 }
 
