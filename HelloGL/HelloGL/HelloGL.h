@@ -34,6 +34,7 @@ public:
 	void Display();
 	void DrawPolygon1();
 	void DrawCubeArray();
+	void DrawIndexedCube();
 	void Update();
 	void Keyboard(unsigned char key, int x, int y);
 
@@ -42,4 +43,7 @@ private:
 	Camera* camera;
 	static Vertex vertices[];
 	static Color colors[];
+	static Vertex indexedVertices[];
+	static Color indexedColors[];
+	static GLushort indices[]; // inbuilt typedef 16 bit unsigned int
 };
