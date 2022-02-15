@@ -6,6 +6,26 @@
 #include "GLUTCallbacks.h"
 #define REFRESHRATE 16
 
+struct Vector3 {
+	float x;
+	float y;
+	float z;
+};
+
+struct Camera {
+	Vector3 eye;
+	Vector3 centre;
+	Vector3 up;
+};
+
+struct Color{
+	GLfloat r, g, b;
+};
+
+struct Vertex{
+	GLfloat x, y, z;
+};
+
 
 class HelloGL {
 public:
@@ -13,12 +33,19 @@ public:
 	~HelloGL(void);
 	void Display();
 	void DrawPolygon1();
+	void DrawCubeArray();
+	void DrawIndexedCube();
+	void DrawCubeArrayAlt();
+	void DrawIndexedCubeAlt();
 	void Update();
-<<<<<<< Updated upstream
-=======
 	void Keyboard(unsigned char key, int x, int y);
->>>>>>> Stashed changes
 
 private:
 	float rotation;
+	Camera* camera;
+	static Vertex vertices[];
+	static Color colors[];
+	static Vertex indexedVertices[];
+	static Color indexedColors[];
+	static GLushort indices[]; // inbuilt typedef 16 bit unsigned int
 };
