@@ -6,7 +6,7 @@
 HelloGL::HelloGL(int argc, char* argv[]) {
 	rotation = 0.0f;
 	camera = new Camera();
-	cube = new Cube();
+	
 	camera->eye.x = 0.0f; camera->eye.y = 0.0f; camera->eye.z = 1.0f;
 	camera->centre.x = 0.0f, camera->centre.y = 0.0f, camera->centre.z = 0.0f;
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
@@ -26,14 +26,23 @@ HelloGL::HelloGL(int argc, char* argv[]) {
 	glMatrixMode(GL_MODELVIEW);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
+
+	for (int i = 0; i < 200; i++) {
+		cube[i] = new Cube(((rand() % 400) / 10.0f) - 20.0f,
+			((rand() % 200) / 10.0f) - 10.0f,
+			(rand() % 1000) / 10.0f);
+	}
+
 	glutMainLoop(); //put nothing after this
 }
 
 void HelloGL::Display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	cube->Draw();
-	cube->Update();
+	for (int i = 0; i < 200; i++) {
+		cube[i]->Draw();
+		cube[i]->Update();
+	}
 
 	glFlush();
 	glutSwapBuffers(); // double buffering
