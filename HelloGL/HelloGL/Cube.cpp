@@ -54,12 +54,12 @@ bool Cube::Load(char* path) {
 		return false;
 	}
 	inFile >> numVertices;
-	indexedVertices = new Vertex[numVertices];
+	indexedVertices = new Vertex[numVertices]; //num vertices == number lines in file
 	std::cout << numVertices;
-	//for (int i = 0; i < numVertices; i++) {
-	//	std::getline(infile, 1)
-	//	//use infile to populate indexed array
-	//}
+	for (int i = 0; i < numVertices; i++) {
+		
+		//use infile to populate indexed array
+	}
 	//for loop for colour load
 	//for loop for indices load
 

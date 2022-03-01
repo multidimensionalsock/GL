@@ -7,6 +7,7 @@
 #include "Structures.h"
 #include <iostream>
 #include <fstream>
+#include <string>
 
 class Cube{
 	private:
