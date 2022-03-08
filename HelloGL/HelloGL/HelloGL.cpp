@@ -57,7 +57,7 @@ void HelloGL::InitObjects() {
 	camera->centre.x = 0.0f, camera->centre.y = 0.0f, camera->centre.z = 0.0f;
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 
-	Mesh* cubeMesh = MeshLoader::Load((char*)"cube.txt");
+	Mesh* cubeMesh = MeshLoader::Load((char*)"pyramid.txt");
 
 	for (int i = 0; i < 200; i++) {
 		//cube[i] = new Cube(cubeMesh, 0.0f, 0.0f, 0.0f);
