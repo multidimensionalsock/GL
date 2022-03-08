@@ -6,6 +6,7 @@
 #include "GLUTCallbacks.h"
 #include "Structures.h"
 #include "SceneObject.h"
+#include "StaticObject.h"
 
 #define REFRESHRATE 16
 
@@ -25,4 +26,5 @@ private:
 	float rotation;
 	Camera* camera;
 	SceneObject* objects[200];
+	StaticObject* staticObjects[200];
 };
