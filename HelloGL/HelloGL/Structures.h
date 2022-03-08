@@ -1,5 +1,10 @@
 #pragma once
 
+#include <Windows.h>
+#include <gl/GL.h>
+#include <gl/GLU.h>
+#include "GL\freeglut.h"
+
 struct Vector3 {
 	float x;
 	float y;
