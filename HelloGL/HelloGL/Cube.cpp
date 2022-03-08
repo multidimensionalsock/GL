@@ -12,7 +12,6 @@ Cube::Cube(float x, float y, float z) {
 	_position.x = x;
 	_position.y = y;
 	_position.z = z;
-	Load((char*)"cube.txt");
 }
 
 Cube::~Cube() {
@@ -20,7 +19,6 @@ Cube::~Cube() {
 }
 
 void Cube::Draw() {
-	
 	if (indexedVertices != nullptr && indexedColors != nullptr && indices != nullptr) {
 		glTranslatef(_position.x, _position.y, _position.z);
 		glRotatef(_rotation, 1.0f, 0.0f, 0.0f);
@@ -53,15 +51,28 @@ bool Cube::Load(char* path) {
 		std::cerr << "Cant open text file" << path << std::endl;
 		return false;
 	}
+
 	inFile >> numVertices;
-	indexedVertices = new Vertex[numVertices]; //num vertices == number lines in file
-	std::cout << numVertices;
-	for (int i = 0; i < numVertices; i++) {
-		
-		//use infile to populate indexed array
+	indexedVertices = new Vertex[numVertices]; 
+	for (int i = 0; i < numVertices; i++){
+		inFile >> indexedVertices[i].x;
+		inFile >> indexedVertices[i].y;
+		inFile >> indexedVertices[i].z;
 	}
-	//for loop for colour load
-	//for loop for indices load
+
+	inFile >> numColors;
+	indexedColors = new Color[numColors];
+	for (int i = 0; i < numColors; i++) {
+		inFile >> indexedColors[i].r;
+		inFile >> indexedColors[i].g;
+		inFile >> indexedColors[i].b;
+	}
+
+	inFile >> numIndices;
+	indices = new GLushort[numIndices];
+	for (int i = 0; i < numIndices; i++){
+		inFile >> indices[i];
+	}
 
 	inFile.close();
 	return true;
