@@ -2,12 +2,13 @@
 #include "GLUTCallbacks.h"
 #include "Structures.h"
 #include "Cube.h"
+#include "MeshLoader.h"
 
 HelloGL::HelloGL(int argc, char* argv[]) {
 	rotation = 0.0f;
 	
-	InitObjects(); //creating objects
 	InitGL(argc, argv); //glut or GL
+	InitObjects(); //creating objects
 
 	glutMainLoop(); //put nothing after this
 }
@@ -51,19 +52,25 @@ void HelloGL::Keyboard(unsigned char key, int x, int y) {
 }
 
 void HelloGL::InitObjects() {
-	Cube::Load((char*)"cube.txt");
+	camera = new Camera();
+	camera->eye.x = 0.0f; camera->eye.y = 0.0f; camera->eye.z = 1.0f;
+	camera->centre.x = 0.0f, camera->centre.y = 0.0f, camera->centre.z = 0.0f;
+	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
+
+	Mesh* cubeMesh = MeshLoader::Load((char*)"cube.txt");
+
 	for (int i = 0; i < 200; i++) {
-		cube[i] = new Cube(0.0f, 0.0f, 0.0f);
+		//cube[i] = new Cube(cubeMesh, 0.0f, 0.0f, 0.0f);
+
+		//cube[i] = new Cube(cubeMesh, 0.0f, 0.0f, 0.0f);
+		cube[i] = new Cube(cubeMesh, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, (rand() % 1000) / 10.0f);
 		/*cube[i] = new Cube(((rand() % 400) / 10.0f) - 20.0f,
 			((rand() % 200) / 10.0f) - 10.0f,
 			(rand() % 1000) / 10.0f);*/
 	}
 }
 void HelloGL::InitGL(int argc, char* argv[]) {
-	camera = new Camera();
-	camera->eye.x = 0.0f; camera->eye.y = 0.0f; camera->eye.z = 1.0f;
-	camera->centre.x = 0.0f, camera->centre.y = 0.0f, camera->centre.z = 0.0f;
-	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
+
 	GLUTCallbacks::Init(this);
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE); // double buffering

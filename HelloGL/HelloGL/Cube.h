@@ -17,13 +17,14 @@ class Cube{
 		static int numVertices, numColors, numIndices;
 		GLfloat _rotation;
 		Vector3 _position;
+		Mesh* _mesh;
 
 	public:
-		Cube(float x, float y, float z);
+		Cube(Mesh* mesh,  float x, float y, float z);
 		~Cube();
 		void Draw();
 		void Update();
 		void SetRotation(float Rotation);
-		static bool Load(char* path);
+		//static bool Load(char* path);
 };
 
