@@ -8,16 +8,19 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "SceneObject.h"
 
-class Cube{
+class Cube : public SceneObject 
+{
 	private:
-		static Vertex* indexedVertices;
-		static Color* indexedColors;
-		static GLushort* indices; // inbuilt typedef 16 bit unsigned int
-		static int numVertices, numColors, numIndices;
+		//static Vertex* indexedVertices;
+		//static Color* indexedColors;
+		//static GLushort* indices; // inbuilt typedef 16 bit unsigned int
+		//static int numVertices, numColors, numIndices;
+		
 		GLfloat _rotation;
 		Vector3 _position;
-		Mesh* _mesh;
+		//Mesh* _mesh;
 
 	public:
 		Cube(Mesh* mesh,  float x, float y, float z);

@@ -1,15 +1,15 @@
 #include "Cube.h"
 
-Vertex* Cube::indexedVertices = nullptr;
-Color* Cube::indexedColors = nullptr;
-GLushort* Cube::indices = nullptr;
-int Cube::numVertices = 0;
-int Cube::numColors = 0;
-int Cube::numIndices = 0;
+//Vertex* Cube::indexedVertices = nullptr;
+//Color* Cube::indexedColors = nullptr;
+//GLushort* Cube::indices = nullptr;
+//int Cube::numVertices = 0;
+//int Cube::numColors = 0;
+//int Cube::numIndices = 0;
 
-Cube::Cube(Mesh* mesh, float x, float y, float z) 
+Cube::Cube(Mesh* mesh, float x, float y, float z) : SceneObject(mesh) 
 {
-	_mesh = mesh;
+	//_mesh = mesh;
 	_rotation = 0.0f;
 	_position.x = x;
 	_position.y = y;
@@ -22,9 +22,11 @@ Cube::~Cube() {
 
 void Cube::Draw() {
 	//if (indexedVertices != nullptr && indexedColors != nullptr && indices != nullptr) {
-		glPushMatrix();
+	glPushMatrix();
+
 		glTranslatef(_position.x, _position.y, _position.z);
 		glRotatef(_rotation, 1.0f, 0.0f, 0.0f);
+
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_COLOR_ARRAY);
 		glVertexPointer(3, GL_FLOAT, 0, _mesh->Vertices);
@@ -36,7 +38,7 @@ void Cube::Draw() {
 
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
-		glPopMatrix();
+	glPopMatrix();
 	//}
 }
 

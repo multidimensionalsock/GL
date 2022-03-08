@@ -1,6 +1,6 @@
 #include "HelloGL.h"
-#include "GLUTCallbacks.h"
-#include "Structures.h"
+//#include "GLUTCallbacks.h"
+//#include "Structures.h"
 #include "Cube.h"
 #include "MeshLoader.h"
 
@@ -17,8 +17,7 @@ void HelloGL::Display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	for (int i = 0; i < 200; i++) {
-		cube[i]->Draw();
-		cube[i]->Update();
+		objects[i]->Draw();
 	}
 
 	glFlush();
@@ -40,13 +39,18 @@ void HelloGL::Update() {
 	if (rotation >= 360.0f)
 		rotation = 0.0f;
 
+	for (int i = 0; i < 200; i++)
+	{
+		objects[i]->Update();
+	}
+
 	glutPostRedisplay();
 }
 
 void HelloGL::Keyboard(unsigned char key, int x, int y) {
 	if (key == 'd')
 		rotation += 0.5f;
-	if (key = 'a') {
+	if (key == 'a') {
 		camera->eye.z += 0.1f; // zoom in
 	}
 }
@@ -57,18 +61,19 @@ void HelloGL::InitObjects() {
 	camera->centre.x = 0.0f, camera->centre.y = 0.0f, camera->centre.z = 0.0f;
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 
-	Mesh* cubeMesh = MeshLoader::Load((char*)"pyramid.txt");
+	Mesh* cubeMesh = MeshLoader::Load((char*)"cube.txt");
 
 	for (int i = 0; i < 200; i++) {
 		//cube[i] = new Cube(cubeMesh, 0.0f, 0.0f, 0.0f);
 
 		//cube[i] = new Cube(cubeMesh, 0.0f, 0.0f, 0.0f);
-		cube[i] = new Cube(cubeMesh, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, (rand() % 1000) / 10.0f);
+		objects[i] = new Cube(cubeMesh, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, (rand() % 1000) / 10.0f);
 		/*cube[i] = new Cube(((rand() % 400) / 10.0f) - 20.0f,
 			((rand() % 200) / 10.0f) - 10.0f,
 			(rand() % 1000) / 10.0f);*/
 	}
 }
+
 void HelloGL::InitGL(int argc, char* argv[]) {
 
 	GLUTCallbacks::Init(this);

@@ -5,9 +5,11 @@
 #include "GL\freeglut.h"
 #include "GLUTCallbacks.h"
 #include "Structures.h"
+#include "SceneObject.h"
+
 #define REFRESHRATE 16
 
-class Cube;
+
 
 class HelloGL {
 public:
@@ -22,5 +24,5 @@ public:
 private:
 	float rotation;
 	Camera* camera;
-	Cube* cube[200];
+	SceneObject* objects[200];
 };
