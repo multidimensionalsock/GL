@@ -11,6 +11,7 @@ Cube::Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObj
 {
 	//_mesh = mesh;
 	_rotation = 0.0f;
+	_texture = new Texture2D;
 	_position.x = x;
 	_position.y = y;
 	_position.z = z;
