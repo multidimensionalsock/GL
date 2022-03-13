@@ -9,6 +9,7 @@ namespace MeshLoader
 	void LoadVertices(ifstream& inFile, Mesh& mesh);
 	void LoadColours(ifstream& inFile, Mesh& mesh);
 	void LoadIndices(ifstream& inFile, Mesh& mesh);
+	void LoadTexture(ifstream& inFile, Mesh& mesh);
 
 	void LoadVertices(ifstream& inFile, Mesh& mesh)
 	{
@@ -39,9 +40,20 @@ namespace MeshLoader
 
 	void LoadIndices(ifstream& inFile, Mesh& mesh){
 		inFile >> mesh.IndexCount;
+		cout << mesh.IndexCount;
 		mesh.Indices = new GLushort[mesh.IndexCount];
 		for (int i = 0; i < mesh.IndexCount; i++) {
 			inFile >> mesh.Indices[i];
+		}
+	}
+
+	void LoadTexture(ifstream& inFile, Mesh& mesh){
+		inFile >> mesh.TexCoordsCount;
+		cout << mesh.TexCoordsCount;
+		mesh.TexCoords = new TexCoord[mesh.TexCoordsCount];
+		for (int i = 0; i < mesh.TexCoordsCount; i++) {
+			inFile >> mesh.TexCoords[i].u;
+			inFile >> mesh.TexCoords[i].v;
 		}
 	}
 
@@ -62,7 +74,9 @@ namespace MeshLoader
 		//LOAD DATA USING METHODS ABOVE
 		LoadVertices(inFile, *mesh);
 		LoadColours(inFile, *mesh);
+		LoadTexture(inFile, *mesh);
 		LoadIndices(inFile, *mesh);
+		
 
 		return mesh;
 	}
