@@ -1,15 +1,8 @@
 #include "Cube.h"
 
-//Vertex* Cube::indexedVertices = nullptr;
-//Color* Cube::indexedColors = nullptr;
-//GLushort* Cube::indices = nullptr;
-//int Cube::numVertices = 0;
-//int Cube::numColors = 0;
-//int Cube::numIndices = 0;
 
 Cube::Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObject(mesh, texture)
 {
-	//_mesh = mesh;
 	_rotation = 0.0f;
 	_texture = new Texture2D;
 	_position.x = x;
@@ -17,27 +10,32 @@ Cube::Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObj
 	_position.z = z;
 }
 
-Cube::~Cube() {
+Cube::~Cube() 
+{
 
 }
 
-void Cube::Draw() {
+void Cube::Draw() 
+{
 	glPushMatrix();
-	glBindTexture(GL_TEXTURE_2D, _texture->GetID());
 	
+		glBindTexture(GL_TEXTURE_2D, _texture->GetID());
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glTexCoordPointer(2, GL_FLOAT, 0, _mesh->TexCoords);
+
 		glTranslatef(_position.x, _position.y, _position.z);
 		glRotatef(_rotation, 1.0f, 1.0f, 1.0f);
 
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_COLOR_ARRAY);
 
-		glTexCoordPointer(2, GL_FLOAT, 0, _mesh->TexCoords);
 		glVertexPointer(3, GL_FLOAT, 0, _mesh->Vertices);
 		glColorPointer(3, GL_FLOAT, 0, _mesh->Colors);
 		
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		
+		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		glPushMatrix();
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, _mesh->Indices);
@@ -46,14 +44,17 @@ void Cube::Draw() {
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
 	glPopMatrix();
 }
 
-void Cube::Update() {
+void Cube::Update() 
+{
 	_rotation += 0.1f;
 }
 
-void Cube::SetRotation(float Rotation) {
+void Cube::SetRotation(float Rotation) 
+{
 
 }
 

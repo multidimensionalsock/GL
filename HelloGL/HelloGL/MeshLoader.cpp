@@ -40,7 +40,6 @@ namespace MeshLoader
 
 	void LoadIndices(ifstream& inFile, Mesh& mesh){
 		inFile >> mesh.IndexCount;
-		cout << mesh.IndexCount;
 		mesh.Indices = new GLushort[mesh.IndexCount];
 		for (int i = 0; i < mesh.IndexCount; i++) {
 			inFile >> mesh.Indices[i];
@@ -49,7 +48,7 @@ namespace MeshLoader
 
 	void LoadTexture(ifstream& inFile, Mesh& mesh){
 		inFile >> mesh.TexCoordsCount;
-		cout << mesh.TexCoordsCount;
+		cout << mesh.TexCoordsCount << endl;
 		mesh.TexCoords = new TexCoord[mesh.TexCoordsCount];
 		for (int i = 0; i < mesh.TexCoordsCount; i++) {
 			inFile >> mesh.TexCoords[i].u;
