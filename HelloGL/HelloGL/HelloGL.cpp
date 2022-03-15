@@ -1,6 +1,6 @@
 #include "HelloGL.h"
-//#include "GLUTCallbacks.h"
-//#include "Structures.h"
+#include "GLUTCallbacks.h"
+#include "Structures.h"
 #include "Cube.h"
 #include "MeshLoader.h"
 
@@ -14,7 +14,7 @@ HelloGL::HelloGL(int argc, char* argv[]) {
 }
 
 void HelloGL::Display() {
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	for (int i = 0; i < 200; i++) {
 		objects[i]->Draw();
@@ -31,8 +31,8 @@ HelloGL::~HelloGL(void) {
 void HelloGL::Update() {
 	glLoadIdentity();
 	gluLookAt(camera->eye.x, camera->eye.y, camera->eye.z, 
-		camera->centre.x, camera->centre.y, camera->centre.z, 
-		camera->up.x, camera->up.y, camera->up.z);
+	camera->centre.x, camera->centre.y, camera->centre.z, 
+	camera->up.x, camera->up.y, camera->up.z);
 	glTranslatef(0.0f, 0.0f, -5.0f);
 	rotation += 0.5f;
 	//Sleep(10);
@@ -62,15 +62,11 @@ void HelloGL::InitObjects() {
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 
 	Mesh* cubeMesh = MeshLoader::Load((char*)"cube.txt");
+	Texture2D* cubeTexture = new Texture2D();
+	cubeTexture->Load((char*)"Penguins.raw", 512, 512);
 
 	for (int i = 0; i < 200; i++) {
-		//cube[i] = new Cube(cubeMesh, 0.0f, 0.0f, 0.0f);
-
-		//cube[i] = new Cube(cubeMesh, 0.0f, 0.0f, 0.0f);
-		objects[i] = new Cube(cubeMesh, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, (rand() % 1000) / 10.0f);
-		/*cube[i] = new Cube(((rand() % 400) / 10.0f) - 20.0f,
-			((rand() % 200) / 10.0f) - 10.0f,
-			(rand() % 1000) / 10.0f);*/
+		objects[i] = new Cube(cubeMesh, cubeTexture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, (rand() % 1000) / 10.0f);
 	}
 }
 
@@ -78,7 +74,9 @@ void HelloGL::InitGL(int argc, char* argv[]) {
 
 	GLUTCallbacks::Init(this);
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE); // double buffering
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH); // double buffering
+	//glEnable(GL_DEPTH_TEST);
+	
 	glutInitWindowSize(800, 800);
 	glutInitWindowPosition(100, 100); // aspect ratio (max point onaxis is now 100 x and y not 1)
 	glutCreateWindow("simple openGL program");
@@ -90,6 +88,9 @@ void HelloGL::InitGL(int argc, char* argv[]) {
 	glViewport(0, 0, 800, 800);
 	gluPerspective(45, 1, 0, 1000); //field of view, aspect ratio, near clipping distance, far clipping distance
 	glMatrixMode(GL_MODELVIEW);
+
+
+	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 }

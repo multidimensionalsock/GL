@@ -9,8 +9,6 @@
 
 #define REFRESHRATE 16
 
-
-
 class HelloGL {
 public:
 	HelloGL(int argc, char* argv[]);
