@@ -75,8 +75,8 @@ void HelloGL::InitGL(int argc, char* argv[]) {
 	GLUTCallbacks::Init(this);
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH); // double buffering
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_TEXTURE_2D);
+	//glEnable(GL_DEPTH_TEST);
+	
 	glutInitWindowSize(800, 800);
 	glutInitWindowPosition(100, 100); // aspect ratio (max point onaxis is now 100 x and y not 1)
 	glutCreateWindow("simple openGL program");
@@ -90,7 +90,7 @@ void HelloGL::InitGL(int argc, char* argv[]) {
 	glMatrixMode(GL_MODELVIEW);
 
 
-	
+	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 }
