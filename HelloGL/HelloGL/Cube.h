@@ -11,6 +11,7 @@ class Cube : public SceneObject
 	private:
 		GLfloat _rotation;
 		Vector3 _position;
+		Material* _material;
 
 	public:
 		Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z);
@@ -18,5 +19,6 @@ class Cube : public SceneObject
 		void Draw();
 		void Update();
 		void SetRotation(float Rotation);
+		void SetMaterial();
 };
 
