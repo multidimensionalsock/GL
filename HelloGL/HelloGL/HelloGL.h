@@ -17,10 +17,13 @@ public:
 	void Update();
 	void Keyboard(unsigned char key, int x, int y);
 	void InitObjects();
+	void InitLighting();
 	void InitGL(int argc, char* argv[]);
 
 private:
 	float rotation;
 	Camera* camera;
 	SceneObject* objects[200];
+	Vector4* _lightPosition;
+	Lighting* _lightData;
 };

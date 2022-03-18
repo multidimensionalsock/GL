@@ -9,6 +9,7 @@ HelloGL::HelloGL(int argc, char* argv[]) {
 	
 	InitGL(argc, argv); //glut or GL
 	InitObjects(); //creating objects
+	InitLighting();
 
 	glutMainLoop(); //put nothing after this
 }
@@ -38,6 +39,11 @@ void HelloGL::Update() {
 	//Sleep(10);
 	if (rotation >= 360.0f)
 		rotation = 0.0f;
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, &(_lightData->Ambient.x));
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, &(_lightData->Diffuse.x));
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, &(_lightData->Specular.x));
+	glLightfv(GL_LIGHT0, GL_POSITION, &(_lightPosition->x));
 
 	for (int i = 0; i < 200; i++)
 	{
@@ -70,13 +76,36 @@ void HelloGL::InitObjects() {
 	}
 }
 
+void HelloGL::InitLighting()
+{
+	_lightPosition = new Vector4();
+	_lightPosition->x = 0.0;
+	_lightPosition->y = 0.0;
+	_lightPosition->z = 1.0;
+	_lightPosition->w = 0.0;
+
+	_lightData = new Lighting();
+	_lightData->Ambient.x = 0.2;
+	_lightData->Ambient.y = 0.2;
+	_lightData->Ambient.z = 0.2;
+	_lightData->Ambient.w = 1.0;
+	_lightData->Diffuse.x = 0.8;
+	_lightData->Diffuse.y = 0.8;
+	_lightData->Diffuse.z = 0.8;
+	_lightData->Diffuse.w = 1.0;
+	_lightData->Specular.x = 0.2;
+	_lightData->Specular.y = 0.2;
+	_lightData->Specular.z = 0.2;
+	_lightData->Specular.w = 1.0;
+}
+
 void HelloGL::InitGL(int argc, char* argv[]) {
 
 	GLUTCallbacks::Init(this);
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH); // double buffering
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_TEXTURE_2D);
+	//glEnable(GL_DEPTH_TEST);
+	
 	glutInitWindowSize(800, 800);
 	glutInitWindowPosition(100, 100); // aspect ratio (max point onaxis is now 100 x and y not 1)
 	glutCreateWindow("simple openGL program");
@@ -89,8 +118,9 @@ void HelloGL::InitGL(int argc, char* argv[]) {
 	gluPerspective(45, 1, 0, 1000); //field of view, aspect ratio, near clipping distance, far clipping distance
 	glMatrixMode(GL_MODELVIEW);
 
-
-	
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 }
