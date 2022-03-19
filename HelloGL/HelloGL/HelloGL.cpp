@@ -1,7 +1,7 @@
 #include "HelloGL.h"
 #include "GLUTCallbacks.h"
 #include "Structures.h"
-#include "Cube.h"
+#include "Planet.h"
 #include "MeshLoader.h"
 
 HelloGL::HelloGL(int argc, char* argv[]) {
@@ -17,8 +17,8 @@ HelloGL::HelloGL(int argc, char* argv[]) {
 void HelloGL::Display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for (int i = 0; i < 200; i++) {
-		objects[i]->Draw();
+	for (int i = 0; i < 1; i++) {
+		Planets[i]->Draw();
 	}
 
 	glFlush();
@@ -45,9 +45,9 @@ void HelloGL::Update() {
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, &(_lightData->Specular.x));
 	glLightfv(GL_LIGHT0, GL_POSITION, &(_lightPosition->x));
 
-	for (int i = 0; i < 200; i++)
+	for (int i = 0; i < 1; i++)
 	{
-		objects[i]->Update();
+		Planets[i]->Update();
 	}
 
 	glutPostRedisplay();
@@ -67,13 +67,11 @@ void HelloGL::InitObjects() {
 	camera->centre.x = 0.0f, camera->centre.y = 0.0f, camera->centre.z = 0.0f;
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 
-	Mesh* cubeMesh = MeshLoader::Load((char*)"cube.txt");
-	Texture2D* cubeTexture = new Texture2D();
-	cubeTexture->Load((char*)"Penguins.raw", 512, 512);
+	Mesh* sunMesh = MeshLoader::Load((char*)"cube.txt");
+	Texture2D* sunTexture = new Texture2D();
+	sunTexture->Load((char*)"Penguins.raw", 512, 512);
 
-	for (int i = 0; i < 200; i++) {
-		objects[i] = new Cube(cubeMesh, cubeTexture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, (rand() % 1000) / 10.0f);
-	}
+	Planets[0] = new Planet(sunMesh, sunTexture, "Sun", 696, 0, 0, 0, 0, 0);
 }
 
 void HelloGL::InitLighting()
