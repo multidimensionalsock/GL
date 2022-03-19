@@ -23,7 +23,7 @@ public:
 private:
 	float rotation;
 	Camera* camera;
-	SceneObject* objects[200];
+	SceneObject* Planets;
 	Vector4* _lightPosition;
 	Lighting* _lightData;
 };

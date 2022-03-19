@@ -1,7 +1,7 @@
 #include "HelloGL.h"
 #include "GLUTCallbacks.h"
 #include "Structures.h"
-#include "Cube.h"
+#include "Planet.h"
 #include "MeshLoader.h"
 
 HelloGL::HelloGL(int argc, char* argv[]) {
@@ -17,8 +17,8 @@ HelloGL::HelloGL(int argc, char* argv[]) {
 void HelloGL::Display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for (int i = 0; i < 200; i++) {
-		objects[i]->Draw();
+	for (int i = 0; i < 1; i++) {
+		Planets[i]->Draw();
 	}
 
 	glFlush();
@@ -45,9 +45,9 @@ void HelloGL::Update() {
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, &(_lightData->Specular.x));
 	glLightfv(GL_LIGHT0, GL_POSITION, &(_lightPosition->x));
 
-	for (int i = 0; i < 200; i++)
+	for (int i = 0; i < 1; i++)
 	{
-		objects[i]->Update();
+		Planets[i]->Update();
 	}
 
 	glutPostRedisplay();
@@ -67,13 +67,28 @@ void HelloGL::InitObjects() {
 	camera->centre.x = 0.0f, camera->centre.y = 0.0f, camera->centre.z = 0.0f;
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 
-	Mesh* cubeMesh = MeshLoader::Load((char*)"cube.txt");
-	Texture2D* cubeTexture = new Texture2D();
-	cubeTexture->Load((char*)"Penguins.raw", 512, 512);
+	//Mesh* cubeMesh = MeshLoader::Load((char*)"cube.txt");
+	/*Texture2D* cubeTexture = new Texture2D();
+	cubeTexture->Load((char*)"Penguins.raw", 512, 512);*/
 
-	for (int i = 0; i < 200; i++) {
-		objects[i] = new Cube(cubeMesh, cubeTexture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, (rand() % 1000) / 10.0f);
-	}
+	//(Mesh* mesh, Texture2D* texture, std::string name, int size, int x, int y, int z, int orbit, int sundistance);
+	//sun
+	Mesh* sunMesh = MeshLoader::Load((char*)"cube.txt", 696);
+	Texture2D* sunTexture = new Texture2D();
+	Planets = new Planet(sunMesh, sunTexture, "Sun", 696, 0, 0, 0, 0, 0);
+
+	//mercury
+	/*Mesh* mercuryMesh = MeshLoader::Load((char*)"cube.txt", 696);
+	Texture2D* mercuryTexture = new Texture2D();
+	Planets[0] = new Planet(mercuryMesh, mercuryTexture, "Mercury", MERCURY_SIZE, 0, MERCURY_DISTANCE, 0, 88, MERCURY_DISTANCE);*/
+	//venus
+	//earth
+	//mars
+	//jupiter
+	//saturn
+	//uranus ;)
+	//neptune
+	//pluto
 }
 
 void HelloGL::InitLighting()

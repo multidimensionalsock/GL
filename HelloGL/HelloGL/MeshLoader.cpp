@@ -74,7 +74,7 @@ namespace MeshLoader
 		}
 	}
 
-	Mesh* MeshLoader::Load(char* path)
+	Mesh* MeshLoader::Load(char* path, int size)
 	{
 		Mesh* mesh = new Mesh();
 

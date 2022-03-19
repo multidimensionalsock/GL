@@ -4,6 +4,7 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "GL\freeglut.h"
+#include "Planet.h"
 
 struct Vector3 {
 	float x;
@@ -53,3 +54,10 @@ struct Material {
 	Vector4 Specular;
 	GLfloat Shininess;
 };
+
+//struct PlanetFactNode {
+//	Planet* planetPointer;
+//	std::string planetFact;
+//	PlanetFactNode** next;
+//	PlanetFactNode** back;
+//};
