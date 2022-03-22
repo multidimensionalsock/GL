@@ -12,9 +12,9 @@ struct Vector3 {
 };
 
 struct Camera {
-	Vector3 eye;
-	Vector3 centre;
-	Vector3 up;
+	Vector3 eye; // position of the camera
+	Vector3 centre; // where youre looking
+	Vector3 up; //worlds upwards direction
 };
 
 struct Color {

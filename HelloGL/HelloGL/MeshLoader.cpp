@@ -11,7 +11,7 @@ namespace MeshLoader
 	void LoadTexCoords(ifstream& inFile, Mesh& mesh);
 	void LoadIndices(ifstream& inFile, Mesh& mesh);
 
-	void LoadVertices(ifstream& inFile, Mesh& mesh)
+	void LoadVertices(ifstream& inFile, Mesh& mesh, int size)
 	{
 		inFile >> mesh.VertexCount;
 
@@ -21,9 +21,13 @@ namespace MeshLoader
 
 			for (int i = 0; i < mesh.VertexCount; i++)
 			{
-				inFile >> mesh.Vertices[i].x;
-				inFile >> mesh.Vertices[i].y;
-				inFile >> mesh.Vertices[i].z;
+				int temp = 0;
+				inFile >> temp;
+				mesh.Vertices[i].x = temp * size;
+				inFile >> temp;
+				mesh.Vertices[i].y = temp * size;
+				inFile >> temp;
+				mesh.Vertices[i].z = temp * size;
 			}
 		}
 	}
@@ -74,7 +78,7 @@ namespace MeshLoader
 		}
 	}
 
-	Mesh* MeshLoader::Load(char* path)
+	Mesh* MeshLoader::Load(char* path, int size)
 	{
 		Mesh* mesh = new Mesh();
 
@@ -89,7 +93,7 @@ namespace MeshLoader
 		}
 
 		//LOAD DATA USING METHODS ABOVE
-		LoadVertices(inFile, *mesh);
+		LoadVertices(inFile, *mesh, size);
 		LoadTexCoords(inFile, *mesh);
 		LoadNormals(inFile, *mesh);
 		LoadIndices(inFile, *mesh);

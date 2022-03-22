@@ -3,6 +3,7 @@
 #include "Structures.h"
 #include "Planet.h"
 #include "MeshLoader.h"
+#include "Constants.h"
 
 HelloGL::HelloGL(int argc, char* argv[]) {
 	rotation = 0.0f;
@@ -63,15 +64,16 @@ void HelloGL::Keyboard(unsigned char key, int x, int y) {
 
 void HelloGL::InitObjects() {
 	camera = new Camera();
-	camera->eye.x = 0.0f; camera->eye.y = 0.0f; camera->eye.z = 1.0f;
+	camera->eye.x = 0.0f; camera->eye.y = 0.0f; camera->eye.z = 10000.0f;
 	camera->centre.x = 0.0f, camera->centre.y = 0.0f, camera->centre.z = 0.0f;
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 
-	Mesh* sunMesh = MeshLoader::Load((char*)"cube.txt");
+	Mesh* sunMesh = MeshLoader::Load((char*)"cube.txt", SUN_SIZE);
 	Texture2D* sunTexture = new Texture2D();
-	sunTexture->Load((char*)"Penguins.raw", 512, 512);
+	sunTexture->Load((char*)"sun.tga", 512, 512);
 
-	Planets[0] = new Planet(sunMesh, sunTexture, "Sun", 696, 0, 0, 0, 0, 0);
+	//(Mesh* mesh, Texture2D* texture, std::string name, int size, int x, int y, int z, int orbit, int sundistance)
+	Planets[0] = new Planet(sunMesh, sunTexture, "Sun", SUN_SIZE, 0, 0, 0, 0, 0);
 }
 
 void HelloGL::InitLighting()
