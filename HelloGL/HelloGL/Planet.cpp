@@ -75,3 +75,8 @@ void Planet::GetSpeed()
 	int minute = hour / 60;
 	_speed = minute;
 }
+
+void Planet::PlanetOrbit()
+{
+	//spins plant by speed of orbit
+}

@@ -28,5 +28,6 @@ class Planet : public SceneObject
 		void SetMaterial();
 		int GetSize() { return _size; };
 		void GetSpeed();
+		void PlanetOrbit();
 };
 
