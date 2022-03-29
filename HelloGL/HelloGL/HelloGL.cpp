@@ -36,10 +36,6 @@ void HelloGL::Update() {
 	camera->centre.x, camera->centre.y, camera->centre.z, 
 	camera->up.x, camera->up.y, camera->up.z);
 	glTranslatef(0.0f, 0.0f, -5.0f);
-	rotation += 0.5f;
-	//Sleep(10);
-	if (rotation >= 360.0f)
-		rotation = 0.0f;
 
 	glLightfv(GL_LIGHT0, GL_AMBIENT, &(_lightData->Ambient.x));
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, &(_lightData->Diffuse.x));
