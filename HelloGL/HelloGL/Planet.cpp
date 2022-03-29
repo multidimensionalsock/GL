@@ -1,6 +1,5 @@
 #include "Planet.h"
 
-
 Planet::Planet(Mesh* mesh, Texture2D* texture, std::string name, int size, int x, int y, int z, int orbit, int sundistance) : SceneObject(mesh, texture)
 {
 	_mesh = mesh;
@@ -15,7 +14,7 @@ Planet::Planet(Mesh* mesh, Texture2D* texture, std::string name, int size, int x
 	_orbit = orbit;
 	_distanceFromTheSun = sundistance;
 	angleOfRotation = 0;
-	div = 0;
+	_time = 0;
 	GetSpeed();
 	SetMaterial();
 }
@@ -31,8 +30,10 @@ void Planet::Draw()
 	glMaterialfv(GL_FRONT, GL_AMBIENT, &(_material->Ambient.x));
 	glPushMatrix();
 	glBindTexture(GL_TEXTURE_2D, _texture->GetID());
-	glTranslatef(_position.x, _position.y, _position.z);
-	//glRotatef(_rotation, 1.0f, 0.0f, 0.0f);
+	glMatrixMode(GL_MODELVIEW);
+	PlanetOrbit(); //global rotate
+	glTranslatef(_distanceFromTheSun, 0, 0);
+	//if you want a local rotation add it here
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
@@ -50,13 +51,11 @@ void Planet::Draw()
 
 void Planet::Update()
 {
-	div + 1;
-	_rotation += 0.1f;
+	_time = glutGet(GLUT_ELAPSED_TIME);
 	glMaterialf(GL_FRONT, GL_SHININESS, _material->Shininess);
-	if ((_orbit > 0)) {
+	/*if (_orbit > 0) {
 		PlanetOrbit();
-		div = 0;
-	}
+	}*/
 }
 
 void Planet::SetRotation(float Rotation)
@@ -79,19 +78,33 @@ void Planet::GetSpeed()
 	float c = 2 * 3.1415 * r;
 	float day = c / _orbit;
 	float hour = day / 24;
-	int minute = hour / 60;
+	float minute = hour / 60;
 	_speed = minute;
 }
 
 void Planet::PlanetOrbit()
 {
-	//spins plant by speed of orbit
-	float X;
-	float Y;
-	if (angleOfRotation > 360)
-		angleOfRotation = 0;
-	angleOfRotation += 360 / _orbit;
-	X = (_position.x * cos(angleOfRotation)) - (_position.y * sin(angleOfRotation));
-	Y = (_position.x * sin(angleOfRotation)) + (_position.y * cos(angleOfRotation));
-	glRotatef(angleOfRotation, 0, Y, 0);
+	if (_orbit > 0) {
+		double X;
+		double Y;
+		if (angleOfRotation > 360)
+			angleOfRotation = 0;
+
+		if (_name == "Saturn") {
+			angleOfRotation += 0.03346969f;
+		}
+		else if (_name == "Uranus") {
+			angleOfRotation += 0.01173135f;
+		}
+		else if (_name == "Neptune") {
+			angleOfRotation += 0.00598106f;
+		}
+		else {
+			angleOfRotation += (360 / _orbit);
+		}
+		X = (_position.x * cos(angleOfRotation)) - (_position.y * sin(angleOfRotation));
+		Y = (_position.x * sin(angleOfRotation)) + (_position.y * cos(angleOfRotation));
+		std::cout << _name << Y << std::endl;
+		glRotated(angleOfRotation, 0, Y, 0);
+	}
 }

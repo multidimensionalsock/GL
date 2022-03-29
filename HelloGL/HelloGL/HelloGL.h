@@ -6,6 +6,7 @@
 #include "GLUTCallbacks.h"
 #include "Structures.h"
 #include "SceneObject.h"
+#include "Planet.h"
 
 #define REFRESHRATE 16
 
@@ -23,7 +24,7 @@ public:
 private:
 	float rotation;
 	Camera* camera;
-	SceneObject* Planets[10];
+	Planet* Planets[10];
 	Vector4* _lightPosition;
 	Lighting* _lightData;
 };
