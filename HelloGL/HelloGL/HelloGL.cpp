@@ -6,7 +6,6 @@
 #include "Constants.h"
 
 HelloGL::HelloGL(int argc, char* argv[]) {
-	rotation = 0.0f;
 	
 	InitGL(argc, argv); //glut or GL
 	InitObjects(); //creating objects
@@ -48,7 +47,7 @@ void HelloGL::Update() {
 	}
 
 	glutPostRedisplay();
-	std::cout << "eye" << camera->eye.x << std::endl; 
+	/*std::cout << "eye" << camera->eye.x << std::endl; 
 	std::cout << camera->eye.y << std::endl;
 	std::cout << camera->eye.z << std::endl;
 	std::cout << "centre" << camera->centre.x << std::endl;
@@ -56,7 +55,7 @@ void HelloGL::Update() {
 	std::cout << camera->centre.z << std::endl;
 	std::cout << "up" << camera->up.x << std::endl;
 	std::cout << camera->up.y << std::endl;
-	std::cout << camera->up.z << std::endl;
+	std::cout << camera->up.z << std::endl;*/
 }
 
 void HelloGL::Keyboard(unsigned char key, int x, int y) {
