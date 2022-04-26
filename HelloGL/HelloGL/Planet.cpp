@@ -98,27 +98,7 @@ void Planet::PlanetOrbit()
 		if (angleOfRotation > 360)
 			angleOfRotation = 0;
 
-		/*if (_name == "Saturn") {
-			angleOfRotation += 0.03346969f;
-		}
-		else if (_name == "Uranus") {
-			angleOfRotation += 0.01173135f;
-		}
-		else if (_name == "Neptune") {
-			angleOfRotation += 0.00598106f;
-		}
-		else {*/
-		angleOfRotation += (360 / _orbit);
-		//}
-		X = (_position.x * cos(angleOfRotation)) - (_position.y * sin(angleOfRotation));
-		Y = (_position.y * cos(angleOfRotation)) - (_position.x * sin(angleOfRotation));
-
-
-		/*X = (0 * cos(angleOfRotation)) - (0 * sin(angleOfRotation));
-		Y = (0 * sin(angleOfRotation)) + (0 * cos(angleOfRotation));*/
-		//std::cout << _name << " " << Y << " " << angleOfRotation << " " << _position.x << " " << _position.y << " " << sin(angleOfRotation) << " " << cos(angleOfRotation) << std::endl;
-		//std::cout << _name << Y << std::endl;
-		//std::cout << _name << angleOfRotation << " " << Y << std::endl;
+		angleOfRotation += (360 / _orbit)/2;
 		glRotated(angleOfRotation, 0, angleOfRotation, 0);
 	}
 }
