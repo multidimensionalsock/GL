@@ -33,10 +33,10 @@ void Planet::Draw()
 	glPushMatrix();
 	glBindTexture(GL_TEXTURE_2D, _texture->GetID());
 	glMatrixMode(GL_MODELVIEW);
+	//planet orbit is here because if its in update the rotate rotates around local
 	if (planet_slower == 1) {
 		PlanetOrbit(); //global rotate
 		planet_slower = 0;
-		
 	}
 	glTranslatef(_distanceFromTheSun, 0, 0);
 	//if you want a local rotation add it here
@@ -61,9 +61,6 @@ void Planet::Update()
 	planet_slower += 1;
 	_time = glutGet(GLUT_ELAPSED_TIME);
 	glMaterialf(GL_FRONT, GL_SHININESS, _material->Shininess);
-	/*if (_orbit > 0) {
-		PlanetOrbit();
-	}*/
 }
 
 void Planet::SetRotation(float Rotation)

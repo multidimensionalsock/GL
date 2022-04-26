@@ -46,18 +46,10 @@ void HelloGL::Update() {
 	for (int i = 0; i < 9; i++)
 	{
 		Planets[i]->Update();
+	
 	}
 
 	glutPostRedisplay();
-	/*std::cout << "eye" << camera->eye.x << std::endl; 
-	std::cout << camera->eye.y << std::endl;
-	std::cout << camera->eye.z << std::endl;
-	std::cout << "centre" << camera->centre.x << std::endl;
-	std::cout << camera->centre.y << std::endl;
-	std::cout << camera->centre.z << std::endl;
-	std::cout << "up" << camera->up.x << std::endl;
-	std::cout << camera->up.y << std::endl;
-	std::cout << camera->up.z << std::endl;*/
 }
 
 void HelloGL::Keyboard(unsigned char key, int x, int y) {
