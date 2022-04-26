@@ -1,4 +1,5 @@
 #include "Planet.h"
+#include "Constants.h"
 
 Planet::Planet(Mesh* mesh, Texture2D* texture, std::string name, int size, int x, int y, int z, int orbit, int sundistance) : SceneObject(mesh, texture)
 {
@@ -26,12 +27,17 @@ Planet::~Planet()
 
 void Planet::Draw()
 {
+	std::cout << planet_slower << std::endl;
 	SetMaterial();
 	glMaterialfv(GL_FRONT, GL_AMBIENT, &(_material->Ambient.x));
 	glPushMatrix();
 	glBindTexture(GL_TEXTURE_2D, _texture->GetID());
 	glMatrixMode(GL_MODELVIEW);
-	PlanetOrbit(); //global rotate
+	//planet orbit is here because if its in update the rotate rotates around local
+	if (planet_slower == 1) {
+		PlanetOrbit(); //global rotate
+		planet_slower = 0;
+	}
 	glTranslatef(_distanceFromTheSun, 0, 0);
 	//if you want a local rotation add it here
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -47,15 +53,14 @@ void Planet::Draw()
 
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
+
 }
 
 void Planet::Update()
 {
+	planet_slower += 1;
 	_time = glutGet(GLUT_ELAPSED_TIME);
 	glMaterialf(GL_FRONT, GL_SHININESS, _material->Shininess);
-	/*if (_orbit > 0) {
-		PlanetOrbit();
-	}*/
 }
 
 void Planet::SetRotation(float Rotation)
@@ -90,21 +95,7 @@ void Planet::PlanetOrbit()
 		if (angleOfRotation > 360)
 			angleOfRotation = 0;
 
-		if (_name == "Saturn") {
-			angleOfRotation += 0.03346969f;
-		}
-		else if (_name == "Uranus") {
-			angleOfRotation += 0.01173135f;
-		}
-		else if (_name == "Neptune") {
-			angleOfRotation += 0.00598106f;
-		}
-		else {
-			angleOfRotation += (360 / _orbit);
-		}
-		X = (_position.x * cos(angleOfRotation)) - (_position.y * sin(angleOfRotation));
-		Y = (_position.x * sin(angleOfRotation)) + (_position.y * cos(angleOfRotation));
-		std::cout << _name << Y << std::endl;
-		glRotated(angleOfRotation, 0, Y, 0);
+		angleOfRotation += (360 / _orbit)/2;
+		glRotated(angleOfRotation, 0, angleOfRotation, 0);
 	}
 }

@@ -10,8 +10,9 @@ HelloGL::HelloGL(int argc, char* argv[]) {
 	InitGL(argc, argv); //glut or GL
 	InitObjects(); //creating objects
 	InitLighting();
-
+	planet_slower = 0;
 	glutMainLoop(); //put nothing after this
+	
 }
 
 void HelloGL::Display() {
@@ -30,6 +31,7 @@ HelloGL::~HelloGL(void) {
 }
 
 void HelloGL::Update() {
+	planet_slower++;
 	glLoadIdentity();
 	gluLookAt(camera->eye.x, camera->eye.y, camera->eye.z, 
 	camera->centre.x, camera->centre.y, camera->centre.z, 
@@ -44,18 +46,10 @@ void HelloGL::Update() {
 	for (int i = 0; i < 9; i++)
 	{
 		Planets[i]->Update();
+	
 	}
 
 	glutPostRedisplay();
-	/*std::cout << "eye" << camera->eye.x << std::endl; 
-	std::cout << camera->eye.y << std::endl;
-	std::cout << camera->eye.z << std::endl;
-	std::cout << "centre" << camera->centre.x << std::endl;
-	std::cout << camera->centre.y << std::endl;
-	std::cout << camera->centre.z << std::endl;
-	std::cout << "up" << camera->up.x << std::endl;
-	std::cout << camera->up.y << std::endl;
-	std::cout << camera->up.z << std::endl;*/
 }
 
 void HelloGL::Keyboard(unsigned char key, int x, int y) {
@@ -116,7 +110,7 @@ void HelloGL::InitObjects() {
 	Mesh* saturnMesh = MeshLoader::Load((char*)"cube.txt", SATURN_SIZE);
 	Texture2D* saturnTexture = new Texture2D();
 	saturnTexture->Load((char*)"Textures/saturn.bmp", 512, 512);
-	Planets[6] = new Planet(jupiterMesh, jupiterTexture, "Saturn", SATURN_SIZE, SATURN_DISTANCE, 0, 0, 10756, SATURN_DISTANCE);
+	Planets[6] = new Planet(saturnMesh, saturnTexture, "Saturn", SATURN_SIZE, SATURN_DISTANCE, 0, 0, 10756, SATURN_DISTANCE);
 
 	//uranus
 	Mesh* uranusMesh = MeshLoader::Load((char*)"cube.txt", URANUS_SIZE);

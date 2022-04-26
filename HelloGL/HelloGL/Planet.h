@@ -20,6 +20,7 @@ class Planet : public SceneObject
 		GLfloat _rotation;
 		Material* _material;
 		int _time;
+		int planet_slower;
 
 	public:
 		Planet(Mesh* mesh, Texture2D* texture, std::string name, int size, int x, int y, int z, int orbit, int sundistance);
