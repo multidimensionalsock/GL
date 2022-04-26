@@ -22,3 +22,6 @@
 #define URANUS_SIZE 254 //
 #define NEPTUNE_SIZE 246 //
 #define PLUTO_SIZE 12
+
+#define PLANET_SLOWER 8760
+

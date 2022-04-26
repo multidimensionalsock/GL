@@ -27,4 +27,6 @@ private:
 	Planet* Planets[10];
 	Vector4* _lightPosition;
 	Lighting* _lightData;
+	int planet_slower;
+
 };
