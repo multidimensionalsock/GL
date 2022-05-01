@@ -12,7 +12,7 @@ HelloGL::HelloGL(int argc, char* argv[]) {
 	InitLighting();
 	planet_slower = 0;
 	glutMainLoop(); //put nothing after this
-	
+	//set ca
 }
 
 void HelloGL::Display() {
@@ -53,19 +53,26 @@ void HelloGL::Update() {
 }
 
 void HelloGL::Keyboard(unsigned char key, int x, int y) {
+	//WS = zoom in/ zoom out
+	//AD = left/right movement
+	
 	if (key == 'w') 
-		camera->eye.z -= 100.0f; // zoom in
-	if (key == 'a')
-		camera->eye.z -= 100.0f; // zoom in
+		camera->eye.y -= 100.0f; // zoom in
+	if (key == 'a') {
+		camera->eye.z += 100.0f; // zoom in
+		camera->centre.z += 100.0f;
+	}
 	if (key == 's')
-		camera->eye.x += 100.0f; // zoom in
-	if (key == 'd')
-		camera->eye.y+= 100.0f; // zoom in
+		camera->eye.y += 100.0f; // zoom in
+	if (key == 'd') {
+		camera->eye.z -= 100.0f; // zoom in
+		camera->centre.z -= 100.0f;
+	}
 }
 
 void HelloGL::InitObjects() {
 	camera = new Camera();
-	camera->eye.x = 0.0f; camera->eye.y = 0.0f; camera->eye.z = 10000.0f;
+	camera->eye.x = 1.0f; camera->eye.y = 10000.0f; camera->eye.z = 0.0f;
 	camera->centre.x = 0.0f, camera->centre.y = 0.0f, camera->centre.z = 0.0f;
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 	
