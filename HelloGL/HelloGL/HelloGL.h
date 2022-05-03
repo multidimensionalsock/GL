@@ -20,6 +20,7 @@ public:
 	void InitObjects();
 	void InitLighting();
 	void InitGL(int argc, char* argv[]);
+	void DrawString(const char* text, Vector3* position, Color* color);
 
 private:
 	float rotation;
@@ -28,5 +29,7 @@ private:
 	Vector4* _lightPosition;
 	Lighting* _lightData;
 	int planet_slower;
+	bool m_delete;
+	bool deleted_once;
 
 };

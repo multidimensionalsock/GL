@@ -11,6 +11,8 @@ HelloGL::HelloGL(int argc, char* argv[]) {
 	InitObjects(); //creating objects
 	InitLighting();
 	planet_slower = 0;
+	m_delete = false;
+	deleted_once = false;
 	glutMainLoop(); //put nothing after this
 	//set ca
 }
@@ -18,8 +20,21 @@ HelloGL::HelloGL(int argc, char* argv[]) {
 void HelloGL::Display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	if (m_delete != true){
 	for (int i = 0; i < 9; i++) {
 		Planets[i]->Draw();
+	}
+	}
+	Vector3 v = { -1.4f, 0.7f, -1.0f };
+	Color c = { 255.0f, 255.0f, 255.0f };
+	if ((m_delete == false) && (deleted_once == false)) {
+		DrawString("Planets, arent they cool, i dont think so, hit p", &v, &c);
+	}
+	else if ((m_delete == false) && (deleted_once == true)) {
+		DrawString("Theyre back :(( click p i dont like them", &v, &c);
+	}
+	else {
+		DrawString("No more :)), dont click m", &v, &c);
 	}
 
 	glFlush();
@@ -33,9 +48,9 @@ HelloGL::~HelloGL(void) {
 void HelloGL::Update() {
 	planet_slower++;
 	glLoadIdentity();
-	gluLookAt(camera->eye.x, camera->eye.y, camera->eye.z, 
-	camera->centre.x, camera->centre.y, camera->centre.z, 
-	camera->up.x, camera->up.y, camera->up.z);
+	gluLookAt(camera->eye.x, camera->eye.y, camera->eye.z,
+		camera->centre.x, camera->centre.y, camera->centre.z,
+		camera->up.x, camera->up.y, camera->up.z);
 	glTranslatef(0.0f, 0.0f, -5.0f);
 
 	/*glLightfv(GL_LIGHT0, GL_AMBIENT, &(_lightData->Ambient.x));
@@ -43,12 +58,13 @@ void HelloGL::Update() {
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, &(_lightData->Specular.x));
 	glLightfv(GL_LIGHT0, GL_POSITION, &(_lightPosition->x));*/
 
-	for (int i = 0; i < 9; i++)
-	{
-		Planets[i]->Update();
-	
-	}
+	if (m_delete != true) {
+		for (int i = 0; i < 9; i++)
+		{
+			Planets[i]->Update();
 
+		}
+	}
 	glutPostRedisplay();
 }
 
@@ -67,6 +83,13 @@ void HelloGL::Keyboard(unsigned char key, int x, int y) {
 	if (key == 'd') {
 		camera->eye.z -= 100.0f; // zoom in
 		camera->centre.z -= 100.0f;
+	}
+	if (key == 'p') {
+		m_delete = true;
+		deleted_once = true;
+	}
+	if (key == 'm') {
+		m_delete = false;
 	}
 }
 
@@ -179,4 +202,16 @@ void HelloGL::InitGL(int argc, char* argv[]) {
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
+}
+
+void HelloGL::DrawString(const char* text, Vector3* position, Color* color)
+{
+	glDisable(GL_LIGHTING);
+	glPushMatrix();
+	glColor3f(255, 255, 255);
+	glRasterPos3f(2000.0f, 0.0f, 2000.0f);
+	glTranslatef(position->x, position->y, position->z);
+	glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)text);
+	glPopMatrix();
+	glEnable(GL_LIGHTING);
 }
